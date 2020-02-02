@@ -12,6 +12,8 @@ $container = new ContainerBuilder();
 $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/config'));
 $loader->load('services.yml');
 
+$container->compile();
+
 $controller = $container->get(OrderController::class);
 
 

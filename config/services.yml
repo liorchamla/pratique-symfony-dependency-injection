@@ -29,9 +29,7 @@ services:
 
   App\Controller\OrderController:
     class: App\Controller\OrderController
-    arguments:
-      - '@App\Database\Database'
-      - '@App\Mailer\MailerInterface'
-      - '@App\Texter\TexterInterface'
+    autowire: true
+    public: true
     calls:
       - [wakeup, ['Message de réveil']]
