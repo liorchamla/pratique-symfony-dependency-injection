@@ -1,17 +1,27 @@
+parameters:
+  texter.sms_dsn: 'service.sms.com'
+  texter.sms_key: 'apiKey123'
+  mailer.gmail_user: 'lior@gmail.com'
+  mailer.gmail_password: '123456'
+  mailer.smtp_dsn: 'smtp://localhost'
+  mailer.smtp_user: 'root'
+  mailer.smtp_password: '123456'
+
 services:
   database:
     class: App\Database\Database
   texter.sms:
     class: App\Texter\SmsTexter
-    arguments: ['service.sms.com', 'apiKey123']
+    arguments: ['%texter.sms_dsn%', '%texter.sms_key%']
   texter.fax:
     class: App\Texter\FaxTexter
   mailer.gmail:
     class: App\Mailer\GmailMailer
-    arguments: ['lior@gmail.com', '123456']
+    arguments: ['%mailer.gmail_user%', '%mailer.gmail_password%']
   mailer.smtp:
     class: App\Mailer\SmtpMailer
-    arguments: ['smtp://localhost', 'root', '123456']
+    arguments:
+      ['%mailer.smtp_dsn%', '%mailer.smtp_user%', '%mailer.smtp_password%']
 
   App\Database\Database: '@database'
   App\Mailer\MailerInterface: '@mailer.gmail'
