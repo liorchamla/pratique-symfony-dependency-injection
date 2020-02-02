@@ -1,0 +1,27 @@
+services:
+  database:
+    class: App\Database\Database
+  texter.sms:
+    class: App\Texter\SmsTexter
+    arguments: ['service.sms.com', 'apiKey123']
+  texter.fax:
+    class: App\Texter\FaxTexter
+  mailer.gmail:
+    class: App\Mailer\GmailMailer
+    arguments: ['lior@gmail.com', '123456']
+  mailer.smtp:
+    class: App\Mailer\SmtpMailer
+    arguments: ['smtp://localhost', 'root', '123456']
+
+  App\Database\Database: '@database'
+  App\Mailer\MailerInterface: '@mailer.gmail'
+  App\Texter\TexterInterface: '@texter.sms'
+
+  App\Controller\OrderController:
+    class: App\Controller\OrderController
+    arguments:
+      - '@App\Database\Database'
+      - '@App\Mailer\MailerInterface'
+      - '@App\Texter\TexterInterface'
+    calls:
+      - [wakeup, ['Message de réveil']]
