@@ -41,4 +41,9 @@ class OrderController
 
         $this->texter->send($textMessage);
     }
+
+    public function wakeup(string $message)
+    {
+        var_dump("OrderController S'EST REVEILLE : $message");
+    }
 }

@@ -18,6 +18,8 @@ $controllerDefinition = new Definition(OrderController::class, [
     new Reference('mailer.gmail'),
     new Reference('texter.sms')
 ]);
+$controllerDefinition->addMethodCall('wakeup', ["Message de réveil"]);
+
 $container->setDefinition('controller.order', $controllerDefinition);
 
 $databaseDefinition = new Definition(Database::class);
