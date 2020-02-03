@@ -8,6 +8,8 @@ parameters:
   mailer.smtp_password: '123456'
 
 services:
+  logger:
+    class: App\Logger\DumpLogger
   database:
     class: App\Database\Database
   texter.sms:
@@ -26,6 +28,7 @@ services:
   App\Database\Database: '@database'
   App\Mailer\MailerInterface: '@mailer.gmail'
   App\Texter\TexterInterface: '@texter.sms'
+  App\Logger\DumpLogger: '@logger'
 
   App\Controller\OrderController:
     class: App\Controller\OrderController
