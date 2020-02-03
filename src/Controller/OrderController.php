@@ -6,6 +6,7 @@ use App\Database\Database;
 use App\Mailer\Email;
 use App\Mailer\MailerInterface;
 use App\Model\Order;
+use App\Texter\MultipleTexter;
 use App\Texter\Text;
 use App\Texter\TexterInterface;
 
@@ -15,7 +16,7 @@ class OrderController
     protected $mailer;
     protected $database;
 
-    public function __construct(Database $database, MailerInterface $mailer, TexterInterface $texter)
+    public function __construct(Database $database, MailerInterface $mailer, MultipleTexter $texter)
     {
         $this->database = $database;
         $this->mailer = $mailer;

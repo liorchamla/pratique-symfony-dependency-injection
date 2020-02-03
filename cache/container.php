@@ -47,6 +47,7 @@ class ProjectServiceContainer extends Container
             'App\\Database\\Database' => true,
             'App\\Logger\\DumpLogger' => true,
             'App\\Mailer\\MailerInterface' => true,
+            'App\\Texter\\MultipleTexter' => true,
             'App\\Texter\\TexterInterface' => true,
             'Psr\\Container\\ContainerInterface' => true,
             'Symfony\\Component\\DependencyInjection\\ContainerInterface' => true,
@@ -73,8 +74,11 @@ class ProjectServiceContainer extends Container
         $a->setLogger($b);
         $c = new \App\Mailer\GmailMailer('lior@gmail.com', '123456');
         $c->setLogger($b);
+        $d = new \App\Texter\MultipleTexter();
+        $d->addTexter(new \App\Texter\SmsTexter('service.sms.com', 'apiKey123'), 'Texting with SMS');
+        $d->addTexter(new \App\Texter\FaxTexter(), 'Texting with FAX');
 
-        $this->services['App\\Controller\\OrderController'] = $instance = new \App\Controller\OrderController($a, $c, new \App\Texter\SmsTexter('service.sms.com', 'apiKey123'));
+        $this->services['App\\Controller\\OrderController'] = $instance = new \App\Controller\OrderController($a, $c, $d);
 
         $instance->wakeup('Message de réveil');
 

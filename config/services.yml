@@ -10,6 +10,7 @@ parameters:
 services:
   _defaults:
     autowire: true
+
   logger:
     class: App\Logger\DumpLogger
   database:
@@ -17,8 +18,12 @@ services:
   texter.sms:
     class: App\Texter\SmsTexter
     arguments: ['%texter.sms_dsn%', '%texter.sms_key%']
+    tags:
+      - { name: text_sender, message: 'Texting with SMS', story: 3 }
   texter.fax:
     class: App\Texter\FaxTexter
+    tags:
+      - { name: text_sender, message: 'Texting with FAX' }
   mailer.gmail:
     class: App\Mailer\GmailMailer
     arguments: ['%mailer.gmail_user%', '%mailer.gmail_password%']
@@ -31,6 +36,8 @@ services:
   App\Mailer\MailerInterface: '@mailer.gmail'
   App\Texter\TexterInterface: '@texter.sms'
   App\Logger\DumpLogger: '@logger'
+
+  App\Texter\MultipleTexter: ~
 
   App\Controller\OrderController:
     class: App\Controller\OrderController

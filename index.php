@@ -2,6 +2,7 @@
 
 use App\Controller\OrderController;
 use App\DependencyInjection\LoggerAwareCompilerPass;
+use App\DependencyInjection\TextSenderCompilerPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
@@ -20,6 +21,7 @@ if (!file_exists($cachePath)) {
     $loader->load('services.yml');
 
     $container->addCompilerPass(new LoggerAwareCompilerPass());
+    $container->addCompilerPass(new TextSenderCompilerPass());
 
     $container->compile();
 
